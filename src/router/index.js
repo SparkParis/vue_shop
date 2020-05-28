@@ -5,8 +5,10 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // 这里通过理由懒加载的方式来加载组件
-const Login = () => import("components/login/Login");
+const Login = () => import("components/login/Login")
 const Home = () => import("components/home/Home")
+const Welcome = () => import("components/home/childcomps/Welcome")
+const Users = () => import('components/home/childcomps/Users')
 
 const routes = [
   {
@@ -18,7 +20,13 @@ const routes = [
     component: Login
   }, {
     path: '/home',
-    component: Home
+    component: Home,
+    // 跳到home页面后自动重定向到welcome页面
+    redirect: '/welcome',
+    children: [
+      { path: '/welcome', component: Welcome },
+      { path: '/users', component: Users }
+    ]
   }
 
 ]

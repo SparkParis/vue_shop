@@ -18,6 +18,5 @@ export default {
 @import url("~assets/css/reset.css");
 #app {
   height: 100vh;
-  background-color: #2b4b6b;
 }
 </style>

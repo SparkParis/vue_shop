@@ -60,8 +60,6 @@ export default {
       this.$refs.loginFormRef.resetFields();
     },
     loginClick() {
-      console.log("111");
-
       // validate表单验证方法,返回的是一个promise对象的函数,传入回调函数来接收返回值,验证通过发挥true,反之则返回false
       // (1)传入参数的方式接收返回值
       // this.$refs.loginFormRef.validate(isValid => {
@@ -90,6 +88,10 @@ export default {
 // 导入图标库
 @import url("~assets/fonts/iconfont.css");
 .login {
+  background-color: #2b4b6b;
+  height: 100%;
+}
+.login-box {
   // 模块居中显示
   position: absolute;
   left: 50%;
@@ -99,9 +101,6 @@ export default {
   width: 500px;
   height: 300px;
   background-color: #fff;
-}
-.login-box {
-  height: 100%;
 }
 .avatar {
   width: 160px;
