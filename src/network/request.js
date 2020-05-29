@@ -11,6 +11,7 @@ export function request(config) {
   instance.interceptors.request.use(res => {
     //每次拦截只有都需要return,才能执行后续操作
     // 授权api需要在axios的请求拦截器中拦截请求, 在请求头中添加Authorization属性为token值
+
     res.headers.Authorization = window.sessionStorage.getItem('token')
     return res
   })

@@ -1,10 +1,7 @@
 <template>
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <bread :breadTitle="breadTitle" />
+
     <!-- 卡片区域 -->
     <el-card class="box-card">
       <!-- 搜索框这里通过栅格化控制组件的宽度 -->
@@ -56,7 +53,12 @@
             ></el-button>
             <!-- 分配角色按钮 为图标按钮设置提示信息tooltips -->
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+                @click="alloatUserRule(scope.row)"
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -119,19 +121,45 @@
         <el-button type="primary" @click="editUserConfirm">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!-- 分配角色dialog -->
+    <el-dialog title="分配角色" :visible.sync="ruleVisible" width="50%" @close="setRuleClose">
+      <div>
+        <p>当前用户: {{userInfo.username}}</p>
+        <p>当前角色:{{userInfo.role_name}}</p>
+        <p>
+          新分配的角色:
+          <el-select v-model="selectRoleId" placeholder="请选择">
+            <el-option
+              v-for="item in ruleList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="ruleVisible = false">取 消</el-button>
+        <el-button type="primary" @click="setNewRuleConfirm">确定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import Bread from "components/common/Bread";
+
 import {
   getUsers,
   updateState,
   addUser,
   getUserById,
   updateUser,
-  deleteUser
-} from "network/home";
-
+  deleteUser,
+  updateUserRule
+} from "network/user";
+import { getRule } from "network/power";
 export default {
   name: "Users",
   data() {
@@ -151,7 +179,9 @@ export default {
     return {
       queryInfo: {
         query: "",
+        // 当前页码
         pagenum: 1,
+        // 每页显示的条数
         pagesize: 2
       },
       userList: [],
@@ -188,8 +218,22 @@ export default {
       // 编辑对话框显示与否
       editDialogVisible: false,
       // 查询用户信息
-      editUserInfo: {}
+      editUserInfo: {},
+      // 面包屑展示内容
+      breadTitle: ["首页", "用户管理", "用户列表"],
+
+      // 分配用户角色的当前用户is
+      userInfo: {},
+      // 新分配角色的id
+      selectRoleId: "",
+      // 获取的角色列表
+      ruleList: [],
+      // 分配角色对话框显示
+      ruleVisible: false
     };
+  },
+  components: {
+    Bread
   },
   created() {
     this.getUsersList();
@@ -216,7 +260,6 @@ export default {
 
     // 修改用户状态需要发送请求
     async updateSate(userInfo) {
-      console.log(userInfo);
       // 发送网络请求修改状态
       const { data, status } = await updateState(
         `/users/${userInfo.id}/state/${userInfo.mg_state}`
@@ -313,6 +356,40 @@ export default {
             message: "已取消删除"
           });
         });
+    },
+
+    // 给用户分配角色
+    async alloatUserRule(userInfo) {
+      // 获取当前用户的信息
+      this.userInfo = userInfo;
+
+      // 获取角色列表
+      const { data } = await getRule();
+      if (data.meta.status !== 200) return this.$message.error(data.meta.msg);
+      // 数据获取成功
+      // 将角色列表保存渲染在页面中
+      this.ruleList = data.data;
+      this.ruleVisible = true;
+    },
+
+    // 设置新角色按钮点击事件
+    async setNewRuleConfirm() {
+      // 没有分配角色提示
+      if (!this.selectRoleId) return this.$message.error("请选择新分配的角色");
+      // 新分配角色发送请求修改角色
+      const { data } = await updateUserRule(
+        this.userInfo.id,
+        this.selectRoleId
+      );
+      if (data.meta.status !== 200) return this.$message.error(data.meta.msg);
+      // 修改成功
+      this.getUsersList();
+      this.ruleVisible = false;
+      this.$message.success(data.meta.msg);
+    },
+    // 设置分配角色dialog关闭事件
+    setRuleClose() {
+      (this.selectRoleId = ""), (this.userInfo = {});
     }
   }
 };

@@ -57,10 +57,6 @@
 // 导入封装网络模块
 import { getMenu } from "network/home";
 
-// 导入组件
-import Welcome from "components/home/childcomps/Welcome";
-import Users from "components/home/childcomps/Users";
-
 export default {
   name: "Home",
   data() {
@@ -77,10 +73,7 @@ export default {
       currentIndex: ""
     };
   },
-  components: {
-    Welcome,
-    Users
-  },
+
   created() {
     // 创建时就请求数据,这里将请求的方法放在methods中,并且在data声明变量来存储获取返回的值
     this.getMenulist();
