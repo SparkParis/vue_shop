@@ -5,6 +5,7 @@ export function request(config) {
   // 1.创建axois实例对象
   const instance = axios.create({
     baseURL: "http://182.92.102.182:88/api/private/v1",
+    // baseURL: "http://timemeetyou.com:8889/api/private/v1/",
     timeout: 5000
   })
   // 2.请求拦截

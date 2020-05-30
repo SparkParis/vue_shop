@@ -11,6 +11,7 @@ const Welcome = () => import("components/home/childcomps/Welcome")
 const Users = () => import('components/home/childcomps/Users')
 const Right = () => import('components/power/Right')
 const Role = () => import('components/power/Role')
+const Category = () => import('components/goods/Category')
 
 const routes = [
   {
@@ -30,6 +31,7 @@ const routes = [
       { path: '/users', component: Users },
       { path: '/rights', component: Right },
       { path: '/roles', component: Role },
+      { path: '/categories', component: Category },
     ]
   }
 
@@ -50,8 +52,6 @@ router.beforeEach((to, from, next) => {
   if (!token) return next('/login')
   // 存在则放行
   next()
-
-
 })
 
 export default router

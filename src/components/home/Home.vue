@@ -81,7 +81,7 @@ export default {
     this.currentIndex = window.sessionStorage.getItem("currentIndex");
   },
   methods: {
-    // 事件店家
+    // 事件点击
     logoutClick() {
       // 退出功能
       // 删除token
