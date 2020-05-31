@@ -30,9 +30,15 @@ import {
   Select,
   Option,
   Cascader,
+  Alert,
+  TabPane,
+  Tabs
 
 } from 'element-ui'
 
+Vue.use(TabPane)
+Vue.use(Tabs)
+Vue.use(Alert)
 Vue.use(Cascader)
 Vue.use(Option)
 Vue.use(Select)

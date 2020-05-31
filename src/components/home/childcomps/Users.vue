@@ -107,7 +107,6 @@
         <el-form-item label="用户名" prop="username">
           <el-input v-model="editUserInfo.username" disabled></el-input>
         </el-form-item>
-
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="editUserInfo.email"></el-input>
         </el-form-item>
