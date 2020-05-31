@@ -49,11 +49,13 @@ body {
   margin: 15px;
 }
 
-/* a {
-  color: var(--color-text);
-  text-decoration: none;
-} */
+.el-steps {
+  margin: 20px;
+}
 
+.el-step__title {
+  font-size: 12px !important;
+}
 
 .clear-fix::after {
   clear: both;
@@ -62,6 +64,11 @@ body {
   width: 0;
   height: 0;
   visibility: hidden;
+}
+
+/* 富文本编辑器 */
+.ql-editor {
+  min-height: 300px;
 }
 
 .clear-fix {

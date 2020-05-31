@@ -32,10 +32,20 @@ import {
   Cascader,
   Alert,
   TabPane,
-  Tabs
+  Tabs,
+  Steps,
+  Step,
+  CheckboxGroup,
+  Checkbox,
+  Upload,
 
 } from 'element-ui'
 
+Vue.use(Upload)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Steps)
+Vue.use(Step)
 Vue.use(TabPane)
 Vue.use(Tabs)
 Vue.use(Alert)

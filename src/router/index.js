@@ -13,6 +13,8 @@ const Right = () => import('components/power/Right')
 const Role = () => import('components/power/Role')
 const Category = () => import('components/goods/Category')
 const Params = () => import('components/goods/Params')
+const GoodsList = () => import('components/goods/GoodsList')
+const AddGoods = () => import('components/goods/AddGoods')
 
 const routes = [
   {
@@ -34,6 +36,8 @@ const routes = [
       { path: '/roles', component: Role },
       { path: '/categories', component: Category },
       { path: '/params', component: Params },
+      { path: '/goods', component: GoodsList },
+      { path: '/goods/add', component: AddGoods },
     ]
   }
 

@@ -79,5 +79,49 @@ export function deleteParams(cateId, attrid) {
   })
 }
 
-// 
+// 商品列表展示功能实现
+// 获取商品列表,
+// 这里通过嵌套获取的方式会出现参数params并没有传入到url中,原因是没有return
+export function getGoods(queryInfo) {
+  return request({
+    method: "get",
+    // url: `/goods?query=${queryInfo.query}&pagenum=${queryInfo.pagenum}&pagesize=${queryInfo.pagesize}`,
+    url: `/goods`,
+    params: queryInfo,
 
+  })
+}
+
+// 删除商品
+export function deleteGoods(goodsId) {
+  return request({
+    method: 'delete',
+    url: `/goods/${goodsId}`
+  })
+}
+
+//编辑提交商品
+export function updateGoods(id) {
+  return request({
+    method: 'put',
+    url: `goods/${id}`,
+    data: {
+      goods_name,
+      goods_price,
+      goods_number,
+      goods_weight,
+      goods_introduce,
+      pics,
+      attrs
+    }
+  })
+}
+
+// 添加商品
+export function addGoods(goods) {
+  return request({
+    method: 'post',
+    url: '/goods',
+    data: goods
+  })
+}
