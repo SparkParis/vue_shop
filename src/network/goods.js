@@ -125,3 +125,12 @@ export function addGoods(goods) {
     data: goods
   })
 }
+
+// 编辑商品
+export function updataGoods(goodsId, editGoods) {
+  return request({
+    method: 'put',
+    url: `goods/${goodsId}`,
+    data: editGoods
+  })
+}

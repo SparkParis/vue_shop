@@ -56,6 +56,16 @@
         :total="total"
       ></el-pagination>
     </el-card>
+
+    <!-- 编辑商品对话框 -->
+    <el-dialog title="编辑商品" :visible.sync="editGoodsVisible" width="50%">
+      <!-- 编辑见添加 -->
+      <span>编辑见添加,后续待封装</span>
+      <span slot="footer">
+        <el-button @click="editGoodsVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editGoodsVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -76,7 +86,8 @@ export default {
         pagenum: 1
       },
       goodsList: [],
-      total: 0
+      total: 0,
+      editGoodsVisible: false
     };
   },
   components: {
@@ -116,8 +127,11 @@ export default {
 
     //编辑商品
     editGoodsClick(row) {
-      console.log(row);
+      this.editGoodsVisible = true;
     },
+    // editGoodsConfirm() {
+    //   updataGoods;
+    // },
     deleteGoodsClick(goodsId) {
       // messagebox
       this.$confirm("此操作将永久删除该商品, 是否继续?", "提示", {
