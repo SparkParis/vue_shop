@@ -8,8 +8,6 @@ export function request(config) {
   // 1.创建axois实例对象
   const instance = axios.create({
     baseURL: "http://182.92.102.182:88/api/private/v1",
-    // baseURL: 'https://www.liulongbin.top:8888/api/private/v1/',
-
     timeout: 5000
   })
   // 2.请求拦截
