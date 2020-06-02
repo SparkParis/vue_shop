@@ -3,7 +3,7 @@
     <el-header>
       <div>
         <img src="~assets/img/logo.png" alt />
-        <span>后台管理系统</span>
+        <span>SparkParis电商后台管理系统</span>
       </div>
       <el-button type="info" @click="logoutClick">退出</el-button>
     </el-header>

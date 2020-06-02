@@ -1,14 +1,8 @@
 // 封装axios的request请求
 import axios from 'axios';
-//get参数序列化
-function serialize(obj) {
-  let ary = []
-  for (var p in obj)
-    if (obj.hasOwnProperty(p) && obj[p]) {
-      ary.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]))
-    }
-  return '?' + ary.join('&')
-}
+
+// 导入进度条插件
+import NProgress from 'nprogress'
 
 export function request(config) {
   // 1.创建axois实例对象
@@ -23,16 +17,15 @@ export function request(config) {
     //每次拦截只有都需要return,才能执行后续操作
     // 授权api需要在axios的请求拦截器中拦截请求, 在请求头中添加Authorization属性为token值
 
+    // 为页面加载提供进度条,在响应拦截和请求拦截的时候
+    NProgress.start();
+
     res.headers.Authorization = window.sessionStorage.getItem('token')
-
-    // get请求参数的处理,todo
-    // res.headers.url = res.headers.method == 'get' ? res.headers.url + serialize(res.headers.url) : formatUrl(res.headers.url, 1)
-    // https://blog.csdn.net/weixin_44827421/article/details/100060163
-
     return res
   })
   // 3.响应拦截
   instance.interceptors.response.use(res => {
+    NProgress.done();
     return res
   })
   // 4发送请求,axios中返回的本来就是promise对象

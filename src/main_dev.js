@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+// 注意开发环境下不能注释
 import './plugins/element.js'
 
 // 导入富文本编辑器
@@ -37,6 +37,5 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  store,
   render: h => h(App),
 }).$mount('#app')
